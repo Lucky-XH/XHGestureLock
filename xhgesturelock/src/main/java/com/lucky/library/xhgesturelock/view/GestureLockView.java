@@ -7,6 +7,9 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.view.View;
 
+import com.lucky.library.xhgesturelock.util.ConvertUtil;
+
+
 /**
  * @author xhao
  */
@@ -71,7 +74,7 @@ public class GestureLockView extends View {
 		this.mColorCustom = mColorCustom;
 		this.mColorMove = mColorMove;
 		this.mColorError = mColorError;
-		this.mLineCustomSize=ConvertUtil.dip2px(context,mLineCustomSize);
+		this.mLineCustomSize= ConvertUtil.dip2px(context,mLineCustomSize);
 		this.mLineMoveSize=ConvertUtil.dip2px(context,mLineMoveSize);
 		mPaint = new Paint();
 		mPaint.setAntiAlias(true);

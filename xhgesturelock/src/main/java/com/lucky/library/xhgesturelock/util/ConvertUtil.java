@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.view;
+package com.lucky.library.xhgesturelock.util;
 
 import android.content.Context;
 
@@ -17,4 +17,5 @@ public class ConvertUtil {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+
 }

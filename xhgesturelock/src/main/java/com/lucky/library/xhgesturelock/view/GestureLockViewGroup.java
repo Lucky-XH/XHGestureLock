@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.lucky.library.xhgesturelock.R;
+import com.lucky.library.xhgesturelock.listener.GestureLockListener;
+import com.lucky.library.xhgesturelock.listener.GestureLockPathListener;
+import com.lucky.library.xhgesturelock.listener.GestureLockVerifyListener;
+import com.lucky.library.xhgesturelock.util.ResultUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,7 @@ public class GestureLockViewGroup extends RelativeLayout {
 	/**
 	 * 保存用户选中的GestureLockView的id
 	 */
-	private List<Integer> mPassword = new ArrayList<Integer>();
+	private List<Integer> mResultPath = new ArrayList<Integer>();
 	private List<Integer> mChoose = new ArrayList<Integer>();
 
 
@@ -89,7 +93,7 @@ public class GestureLockViewGroup extends RelativeLayout {
 	/**
 	 * 回调接口
 	 */
-	private GestureLockListener mOnGestureLockListener;
+	private GestureLockListener mGestureLockListener;
 
 	public GestureLockViewGroup(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -238,17 +242,18 @@ public class GestureLockViewGroup extends RelativeLayout {
 
 				break;
 			case MotionEvent.ACTION_UP:
-				if (mOnGestureLockListener != null) {
-					if (mOnGestureLockListener instanceof OnGestureLockVerifyListener) {
+				if (mGestureLockListener != null) {
+					if (mGestureLockListener instanceof GestureLockVerifyListener) {
 
-						if (compare(mChoose,mPassword)) {
-							((OnGestureLockVerifyListener) mOnGestureLockListener).onGestureResult(true);
+						if (compare(mChoose,mResultPath)) {
+							((GestureLockVerifyListener) mGestureLockListener).onGestureResult(true);
 						}else {
-							((OnGestureLockVerifyListener) mOnGestureLockListener).onGestureResult(false);
+							((GestureLockVerifyListener) mGestureLockListener).onGestureResult(false);
 						}
 
-					}else if (mOnGestureLockListener instanceof OnGestureLockResultListener){
-						((OnGestureLockResultListener) mOnGestureLockListener).onGestureResult(mChoose);
+					}else if (mGestureLockListener instanceof GestureLockPathListener){
+
+						((GestureLockPathListener) mGestureLockListener).onGestureResult(ResultUtil.list2string(mChoose));
 					}
 				}
 				// 将终点 设为上一个起点
@@ -298,11 +303,11 @@ public class GestureLockViewGroup extends RelativeLayout {
 	private void changeItemMode() {
 		for (GestureLockView gestureLockView : mGestureLockViews) {
 			if (mChoose.contains(gestureLockView.getId())) {
-				if(mPassword.size() != 0 && !compare(mChoose,mPassword)){
+				if(mResultPath.size() != 0 && !compare(mChoose,mResultPath)){
 					mPaint.setColor(mColorError);
 					gestureLockView.setMode(GestureLockView.Mode.STATUS_FINGER_UP_ERROR);
 				}else{
-					if(!compare(mChoose,mPassword)) {
+					if(!compare(mChoose,mResultPath)) {
 						gestureLockView.setMode(GestureLockView.Mode.STATUS_FINGER_UP_ERROR);
 					}else {
 						gestureLockView.setMode(GestureLockView.Mode.STATUS_FINGER_UP_SUCCESS);
@@ -418,34 +423,17 @@ public class GestureLockViewGroup extends RelativeLayout {
 	}
 	/**
 	 * 设置回调接口
-	 *
 	 * @param listener
 	 */
 	public void setOnGestureLockListener(GestureLockListener listener) {
-		this.mOnGestureLockListener = listener;
-	}
-	public interface OnGestureLockResultListener extends GestureLockListener{
-		/**
-		 * @param result
-		 */
-		void onGestureResult(List<Integer> result);
+		this.mGestureLockListener = listener;
 	}
 
-	public interface OnGestureLockVerifyListener extends GestureLockListener{
-		/**
-		 * @param matched
-		 */
-		void onGestureResult(boolean matched);
-
-	}
-	public void setPassword(String mPassword) {
-		List<Integer> password = new ArrayList<>();
-		for (int i = 0; i < mPassword.length(); i++) {
-			password.add(Integer.valueOf(mPassword.substring(i,i+1)));
-		}
-		this.mPassword = password;
-	}
-	public void setPassword(List<Integer> mPassword) {
-		this.mPassword = mPassword;
+    /**
+     * 设置校验密码
+	 * @param mPath
+	 */
+	public void setPassword(String mPath) {
+		this.mResultPath = ResultUtil.string2list(mPath);
 	}
 }

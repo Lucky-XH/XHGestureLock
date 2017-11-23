@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lucky.library.xhgesturelock.listener.GestureLockVerifyListener;
 import com.lucky.library.xhgesturelock.view.GestureLockViewGroup;
 
 
@@ -26,8 +27,9 @@ public class GestureVerifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture_verify);
         initView();
-        gestureLockViewGroup.setPassword("123456");
-        gestureLockViewGroup.setOnGestureLockListener(new GestureLockViewGroup.OnGestureLockVerifyListener() {
+        String password =  SharePreferencesUtil.get(GestureVerifyActivity.this, "password","123456").toString();
+        gestureLockViewGroup.setPassword(password);
+        gestureLockViewGroup.setOnGestureLockListener(new GestureLockVerifyListener() {
             @Override
             public void onGestureResult(boolean matched) {
                 if(!matched){

@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import com.lucky.library.xhgesturelock.R;
+import com.lucky.library.xhgesturelock.util.ConvertUtil;
+import com.lucky.library.xhgesturelock.util.ResultUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class DotViewGroup extends RelativeLayout {
         setWillNotDraw(false);//强制调用 onDraw方法
         TypedArray arry= context.obtainStyledAttributes(attrs, R.styleable.DotViewGroup);
         mCount=arry.getInteger(R.styleable.DotViewGroup_count,mCount);
-        mDotSize=ConvertUtil.dip2px(context,arry.getInteger(R.styleable.DotViewGroup_dotSize,mDotSize));
+        mDotSize= ConvertUtil.dip2px(context,arry.getInteger(R.styleable.DotViewGroup_dotSize,mDotSize));
         mNormalDotColor=arry.getColor(R.styleable.DotViewGroup_normal_color,mNormalDotColor);
         mActionDotColor=arry.getColor(R.styleable.DotViewGroup_action_color,mActionDotColor);
         arry.recycle();
@@ -93,13 +95,20 @@ public class DotViewGroup extends RelativeLayout {
      * 重新绘制
      * @param list
      */
-    public void setPath(List<Integer> list){
-        answer=list;
+    private void setPath(List<Integer> list){
+        answer = list;
         for (Integer v:list){
             dotViews[v-1].setMode(DotView.Mode.ACTION);
         }
     }
-
+    /**
+     * 重新绘制
+     * @param str
+     */
+    public void setPath(String str){
+        List<Integer> list = ResultUtil.string2list(str);
+        setPath(list);
+    }
     public void reset(){
         for (DotView d:dotViews){
             d.setMode(DotView.Mode.NORMAL);

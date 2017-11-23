@@ -10,26 +10,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lucky.library.xhgesturelock.listener.GestureLockPathListener;
 import com.lucky.library.xhgesturelock.view.DotViewGroup;
 import com.lucky.library.xhgesturelock.view.GestureLockViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.lucky.library.gesturelock.demo.GestureEditEnum.EDIT_FIRST;
-import static com.lucky.library.gesturelock.demo.GestureEditEnum.EDIT_INIT;
-import static com.lucky.library.gesturelock.demo.GestureEditEnum.EDIT_MATCH;
-import static com.lucky.library.gesturelock.demo.GestureEditEnum.EDIT_NOT_MATCH;
-
-
 /**
- *
  * @author xhao
  */
 public class GestureEditActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    List<Integer> password = new ArrayList<Integer>();
+    String mPassword = "";
 
     GestureLockViewGroup gesture_edit_lockView;
 
@@ -39,7 +32,13 @@ public class GestureEditActivity extends AppCompatActivity implements View.OnCli
 
     TextView gesture_edit_tip;
 
-    GestureEditEnum editStatu = EDIT_INIT;
+    public static final int EDIT_INIT = 0;
+    public static final int EDIT_FIRST = 1;
+    public static final int EDIT_NOT_MATCH = 2;
+    public static final int EDIT_MATCH = 3;
+
+    public int mEditStatus = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,26 +53,28 @@ public class GestureEditActivity extends AppCompatActivity implements View.OnCli
         dotViewGroup= (DotViewGroup) findViewById(R.id.dotView);
 
         gesture_edit_lockView = (GestureLockViewGroup) findViewById(R.id.gesture_edit_lockView);
-        gesture_edit_lockView.setOnGestureLockListener(new GestureLockViewGroup.OnGestureLockResultListener() {
+        gesture_edit_lockView.setOnGestureLockListener(new GestureLockPathListener() {
 
             @Override
-            public void onGestureResult(List<Integer> result) {
-                if(result == null || result.size() == 0){
+            public void onGestureResult(String result) {
+                if(result == null ||  "".equals(result)){
                     return;
                 }
-                if(editStatu == EDIT_INIT){//第一次编辑
+                if(mEditStatus == EDIT_INIT){
+                    //第一次编辑
                     dotViewGroup.setPath(result);
-                    password.addAll(result);
+                    mPassword = result;
                     resetTv.setVisibility(View.VISIBLE);
-                    editStatu = EDIT_FIRST;
-                    gesture_edit_lockView.setPassword(password);
+                    mEditStatus = EDIT_FIRST;
+                    gesture_edit_lockView.setPassword(mPassword);
 
                 }else{
                     //比较和第一的手势
-                    Log.i("GestureLock",result.toString()+""+password.toString());
-                    if(compare(result,password)){
+                    Log.i("GestureLock",result.toString()+""+mPassword.toString());
+                    if(result.compareTo(mPassword) == 0){
                         //两次一致
-                        editStatu = EDIT_MATCH;
+                        SharePreferencesUtil.put(GestureEditActivity.this,"password",result);
+                        mEditStatus = EDIT_MATCH;
                         gesture_edit_lockView.showSuccess();
                         Toast.makeText(GestureEditActivity.this,"设置成功",Toast.LENGTH_SHORT).show();
                         finish();
@@ -81,11 +82,11 @@ public class GestureEditActivity extends AppCompatActivity implements View.OnCli
                     }else {
                         //提示不一致
                         gesture_edit_lockView.showFailure();
-                        editStatu= EDIT_NOT_MATCH;
+                        mEditStatus = EDIT_NOT_MATCH;
                     }
 
                 }
-                makeTip(editStatu);
+                makeTip(mEditStatus);
             }
 
         });
@@ -111,15 +112,15 @@ public class GestureEditActivity extends AppCompatActivity implements View.OnCli
         int i = v.getId();
         if (i == R.id.rest_tv) {
             resetTv.setVisibility(View.INVISIBLE);
-            password.clear();
-            editStatu = EDIT_INIT;
+            mPassword = "";
+            mEditStatus = EDIT_INIT;
             dotViewGroup.reset();
-            makeTip(editStatu);
+            makeTip(mEditStatus);
 
         }
     }
 
-    private void makeTip(GestureEditEnum value){
+    private void makeTip(int value){
         Animation animation = AnimationUtils.loadAnimation(GestureEditActivity.this,R.anim.shake);
         switch (value){
             case EDIT_INIT:
