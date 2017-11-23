@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.lucky.library.xhgesturelock.view.DotViewGroup
+    <com.lucky.library.gesturelock.view.DotViewGroup
         android:id="@+id/dotView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:text="绘制解锁图案"
         android:textColor="#979999"/>
 
-    <com.lucky.library.xhgesturelock.view.GestureLockViewGroup
+    <com.lucky.library.gesturelock.view.GestureLockViewGroup
         android:id="@+id/gesture_edit_lockView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

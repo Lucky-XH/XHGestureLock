@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.util;
+package com.lucky.library.gesturelock.util;
 
 import android.content.Context;
 

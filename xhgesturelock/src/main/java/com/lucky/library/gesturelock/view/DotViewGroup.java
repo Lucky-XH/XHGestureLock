@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.view;
+package com.lucky.library.gesturelock.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,9 +6,9 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.lucky.library.xhgesturelock.R;
-import com.lucky.library.xhgesturelock.util.ConvertUtil;
-import com.lucky.library.xhgesturelock.util.ResultUtil;
+import com.lucky.library.gesturelock.R;
+import com.lucky.library.gesturelock.util.ConvertUtil;
+import com.lucky.library.gesturelock.util.ResultUtil;
 
 import java.util.ArrayList;
 import java.util.List;

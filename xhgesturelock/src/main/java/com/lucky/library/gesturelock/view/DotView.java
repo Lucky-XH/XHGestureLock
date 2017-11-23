@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.view;
+package com.lucky.library.gesturelock.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

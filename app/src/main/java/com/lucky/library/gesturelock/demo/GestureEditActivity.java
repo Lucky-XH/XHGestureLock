@@ -10,9 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lucky.library.xhgesturelock.listener.GestureLockPathListener;
-import com.lucky.library.xhgesturelock.view.DotViewGroup;
-import com.lucky.library.xhgesturelock.view.GestureLockViewGroup;
+import com.lucky.library.gesturelock.listener.GestureLockPathListener;
+import com.lucky.library.gesturelock.view.DotViewGroup;
+import com.lucky.library.gesturelock.view.GestureLockViewGroup;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.view;
+package com.lucky.library.gesturelock.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,7 +7,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.view.View;
 
-import com.lucky.library.xhgesturelock.util.ConvertUtil;
+import com.lucky.library.gesturelock.util.ConvertUtil;
 
 
 /**

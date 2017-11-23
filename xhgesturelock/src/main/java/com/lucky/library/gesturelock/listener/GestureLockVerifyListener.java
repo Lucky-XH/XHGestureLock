@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.listener;
+package com.lucky.library.gesturelock.listener;
 
 /**
  * Created by xhao on 2017/11/23.

@@ -26,7 +26,7 @@
     </LinearLayout>
 
 
-   <com.lucky.library.xhgesturelock.view.GestureLockViewGroup
+   <com.lucky.library.gesturelock.view.GestureLockViewGroup
        android:id="@+id/gesture_verify_lockView"
        android:layout_width="match_parent"
        android:layout_height="0dp"

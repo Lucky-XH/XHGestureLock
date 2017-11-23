@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.view;
+package com.lucky.library.gesturelock.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,11 +12,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.lucky.library.xhgesturelock.R;
-import com.lucky.library.xhgesturelock.listener.GestureLockListener;
-import com.lucky.library.xhgesturelock.listener.GestureLockPathListener;
-import com.lucky.library.xhgesturelock.listener.GestureLockVerifyListener;
-import com.lucky.library.xhgesturelock.util.ResultUtil;
+import com.lucky.library.gesturelock.listener.GestureLockVerifyListener;
+import com.lucky.library.gesturelock.util.ResultUtil;
+import com.lucky.library.gesturelock.R;
+import com.lucky.library.gesturelock.listener.GestureLockListener;
+import com.lucky.library.gesturelock.listener.GestureLockPathListener;
 
 import java.util.ArrayList;
 import java.util.List;

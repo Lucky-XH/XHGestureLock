@@ -1,4 +1,4 @@
-package com.lucky.library.xhgesturelock.util;
+package com.lucky.library.gesturelock.util;
 
 import java.util.ArrayList;
 import java.util.List;

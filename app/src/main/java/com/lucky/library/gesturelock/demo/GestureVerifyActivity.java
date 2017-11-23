@@ -8,8 +8,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lucky.library.xhgesturelock.listener.GestureLockVerifyListener;
-import com.lucky.library.xhgesturelock.view.GestureLockViewGroup;
+import com.lucky.library.gesturelock.listener.GestureLockVerifyListener;
+import com.lucky.library.gesturelock.view.GestureLockViewGroup;
 
 
 /**
